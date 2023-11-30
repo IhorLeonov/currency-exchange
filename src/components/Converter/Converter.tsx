@@ -6,9 +6,7 @@ import { selectData } from "../../redux/selectors";
 import { getAllCurrency, getCurrency } from "../../redux/operations";
 import { setFirstCurrency, setSecondCurrency } from "../../redux/mainSlice";
 
-interface ConverterProps {}
-
-export const Converter: FC<ConverterProps> = () => {
+export const Converter: FC = () => {
   const [isFirstOrSecond, setIsFirstOrSecond] = useState<boolean>(true);
   const [amount, setAmount] = useState<string>("1");
 

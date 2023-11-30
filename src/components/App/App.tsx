@@ -1,16 +1,16 @@
 import { FC } from "react";
 import { Main } from "./App.styled";
-import { Converter } from "../Converter/Converter";
+import { Header, Converter, Footer } from "../";
 
 const App: FC = () => {
   return (
     <>
-      {/* <header>Header</header> */}
+      <Header />
       <Main>
         <h1>Currency exchange</h1>
         <Converter />
       </Main>
-      {/* <footer>Footer</footer> */}
+      <Footer />
     </>
   );
 };
