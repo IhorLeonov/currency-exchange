@@ -1,0 +1,82 @@
+import { Box } from "./Converter.styled";
+import { FC, useEffect, useState } from "react";
+import { CurrencyField } from "../CurrencyField/CurrencyField";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { selectData } from "../../redux/selectors";
+import { getAllCurrency, getCurrency } from "../../redux/operations";
+import { setFirstCurrency, setSecondCurrency } from "../../redux/mainSlice";
+
+interface ConverterProps {}
+
+export const Converter: FC<ConverterProps> = () => {
+  const [isFirstOrSecond, setIsFirstOrSecond] = useState<boolean>(true);
+  const [amount, setAmount] = useState<string>("1");
+
+  const data = useAppSelector(selectData);
+  const dispatch = useAppDispatch();
+
+  const { currencyList, firstCurrency, secondCurrency, ecxchangeRate } = data;
+
+  let firstAmount: number | string = "";
+  let secondAmount: number | string = "";
+
+  if (ecxchangeRate) {
+    if (isFirstOrSecond) {
+      firstAmount = amount;
+      secondAmount = Number(amount) * ecxchangeRate;
+      if (firstAmount === "") {
+        secondAmount = "";
+      }
+    } else {
+      secondAmount = amount;
+      firstAmount = Number(amount) / ecxchangeRate;
+      if (secondAmount === "") {
+        firstAmount = "";
+      }
+    }
+  }
+
+  useEffect(() => {
+    dispatch(getAllCurrency());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (firstCurrency && secondCurrency) {
+      dispatch(getCurrency({ firstCurrency, secondCurrency }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [firstCurrency, secondCurrency]);
+
+  const handleFirstAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.target.value);
+    setIsFirstOrSecond(true);
+  };
+
+  const handleSecondAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.target.value);
+    setIsFirstOrSecond(false);
+  };
+  return (
+    <Box>
+      <CurrencyField
+        amount={firstAmount}
+        currencyList={currencyList}
+        selectedCurrency={firstCurrency}
+        onChangeAmount={handleFirstAmount}
+        onChangeCurrency={(e: React.ChangeEvent<HTMLSelectElement>) =>
+          dispatch(setFirstCurrency(e.target.value))
+        }
+      />
+      <CurrencyField
+        onChangeCurrency={(e: React.ChangeEvent<HTMLSelectElement>) =>
+          dispatch(setSecondCurrency(e.target.value))
+        }
+        onChangeAmount={handleSecondAmount}
+        selectedCurrency={secondCurrency}
+        currencyList={currencyList}
+        amount={secondAmount}
+      />
+    </Box>
+  );
+};

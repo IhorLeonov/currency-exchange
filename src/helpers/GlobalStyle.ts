@@ -22,8 +22,32 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
-/* body {
-} */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  
+  margin-left: auto;
+  margin-right: auto;
+
+  max-width: 1440px;
+  min-height: 100vh;
+}
 
 img {
   display: block;

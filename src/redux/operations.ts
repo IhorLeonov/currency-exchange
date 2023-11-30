@@ -1,18 +1,30 @@
 import axios from "axios";
 import type { AxiosError } from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { GetCurrencyType } from "../helpers/types";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+const KEY = import.meta.env.VITE_API_KEY;
 
-export const getAllCharacters = createAsyncThunk(
-  "main/getAllCharacters",
-  async (page: number, thunkAPI) => {
+export const getAllCurrency = createAsyncThunk("main/getAllCurrency", async (_, thunkAPI) => {
+  try {
+    const res = await axios.get(`/latest?api_key=${KEY}`);
+    return res.data;
+  } catch (err) {
+    const error = err as AxiosError<string>;
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const getCurrency = createAsyncThunk(
+  "main/getCurrency",
+  async ({ firstCurrency, secondCurrency }: GetCurrencyType, thunkAPI) => {
     try {
-      const res = await axios.post(BASE_URL, {
-        // query: GET_ALL_CHARACTERS,
-        variables: { page },
-      });
-      return res.data;
+      const res = await axios.get(
+        `/latest?api_key=${KEY}&base=${firstCurrency}&symbols=${secondCurrency}`
+      );
+
+      return res.data.rates[secondCurrency];
     } catch (err) {
       const error = err as AxiosError<string>;
       return thunkAPI.rejectWithValue(error.message);
