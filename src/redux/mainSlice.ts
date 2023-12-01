@@ -4,8 +4,7 @@ import { MainSliceState } from "../helpers/types";
 
 const initialState = {
   isLoading: false,
-  isLoadingHeader: false,
-  error: "Qwe",
+  error: null,
   data: {
     UAHtoUSDCourse: null,
     UAHtoEURCourse: null,
@@ -50,31 +49,35 @@ const mainSlice = createSlice({
       })
       .addCase(getUAHtoUSD.fulfilled, (state, action) => {
         state.data.UAHtoUSDCourse = action.payload;
-        state.isLoadingHeader = false;
-        state.error = null;
+        handleSameFulfilled(state);
       })
       .addCase(getUAHtoEUR.fulfilled, (state, action) => {
         state.data.UAHtoEURCourse = action.payload;
-        state.isLoadingHeader = false;
-        state.error = null;
-      })
-      .addMatcher(isAnyOf(getAllCurrencies.pending, getCurrencyCourse.pending), (state) => {
-        state.isLoading = true;
-      })
-      .addMatcher(isAnyOf(getUAHtoUSD.pending, getUAHtoEUR.pending), (state) => {
-        state.isLoadingHeader = true;
+        handleSameFulfilled(state);
       })
       .addMatcher(
-        isAnyOf(getAllCurrencies.rejected, getCurrencyCourse.rejected),
+        isAnyOf(
+          getAllCurrencies.pending,
+          getCurrencyCourse.pending,
+          getUAHtoUSD.pending,
+          getUAHtoEUR.pending
+        ),
+        (state) => {
+          state.isLoading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          getAllCurrencies.rejected,
+          getCurrencyCourse.rejected,
+          getUAHtoUSD.rejected,
+          getUAHtoEUR.rejected
+        ),
         (state, action) => {
           state.isLoading = false;
           if (typeof action.payload === "string") state.error = action.payload;
         }
-      )
-      .addMatcher(isAnyOf(getUAHtoUSD.rejected, getUAHtoEUR.rejected), (state, action) => {
-        state.isLoadingHeader = false;
-        if (typeof action.payload === "string") state.error = action.payload;
-      });
+      );
   },
 });
 

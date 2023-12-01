@@ -55,6 +55,7 @@ export const Converter: FC = () => {
     setAmount(e.target.value);
     setIsFirstOrSecond(false);
   };
+
   return (
     <Box>
       <CurrencyField

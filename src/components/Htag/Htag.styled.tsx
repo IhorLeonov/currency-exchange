@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 export const H1 = styled.h1`
-  margin-top: 70px;
-
-  font-size: 36px;
+  font-size: 46px;
   color: white;
   font-family: var(--title-font-family);
 `;

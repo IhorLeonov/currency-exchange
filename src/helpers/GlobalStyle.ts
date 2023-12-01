@@ -18,6 +18,7 @@ html {
   --color-background: #060412;
   --color-text: #b3b3b3;
   --color-accent: #204ffe;
+  --color-hover: yellowgreen;
 
   --font-family: 'Noto Sans KR', sans-serif;
   --title-font-family: "Kanit", sans-serif;

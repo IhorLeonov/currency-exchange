@@ -1,14 +1,6 @@
 import { FC } from "react";
 import { Box, Caption, Input, Select } from "./CurrencyField.styled";
-
-interface CurrencyFieldProps {
-  currencyList: string[];
-  selectedCurrency?: string;
-  onChangeCurrency: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  onChangeAmount: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  amount: number | string;
-  text: string;
-}
+import { CurrencyFieldProps } from "../../helpers/types";
 
 export const CurrencyField: FC<CurrencyFieldProps> = ({
   currencyList,

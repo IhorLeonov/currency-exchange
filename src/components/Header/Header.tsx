@@ -17,8 +17,8 @@ export const Header: FC = () => {
 
   return (
     <HeaderSection>
+      <Htag tag="h2">UACourse</Htag>
       <UAHCourse currency="USD" course={UAHtoUSDCourse} />
-      <Htag tag="h2">UAH Course</Htag>
       <UAHCourse currency="EUR" course={UAHtoEURCourse} />
     </HeaderSection>
   );

@@ -1,11 +1,6 @@
 import { FC } from "react";
 import { Box, Currency } from "./UAHCourse.styled";
-import { DetailedHTMLProps, HTMLAttributes } from "react";
-
-interface UAHCourseProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  currency: string;
-  course: number | null;
-}
+import { UAHCourseProps } from "../../helpers/types";
 
 export const UAHCourse: FC<UAHCourseProps> = ({ currency, course }) => {
   return (

@@ -1,18 +1,41 @@
-import { FC } from "react";
-import { Main, Desc } from "./App.styled";
-import { Header, Converter, Footer } from "../";
-import { Htag } from "../Htag/Htag";
+import { FC, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
+import { selectError, selectIsLoading } from "../../redux/selectors";
+import { Loader } from "../Loader/Loader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { resetError } from "../../redux/mainSlice";
+import { Layout } from "../Layout/Layout";
 
 const App: FC = () => {
+  const isLoading = useAppSelector(selectIsLoading);
+  const error = useAppSelector(selectError);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error, {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+
+    return () => {
+      () => dispatch(resetError());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
   return (
     <>
-      <Header />
-      <Main>
-        <Htag tag="h1">Global Currency Exchange Rate APP</Htag>
-        <Desc>with live currency exchange rates for over 200 world currencies</Desc>
-        <Converter />
-      </Main>
-      <Footer />
+      <Layout />
+      <ToastContainer />
+      {isLoading && <Loader />}
     </>
   );
 };

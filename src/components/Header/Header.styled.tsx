@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 export const HeaderSection = styled.header`
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: start;
+  gap: 20px;
 
+  padding: 0 60px;
   margin-left: auto;
   margin-right: auto;
 

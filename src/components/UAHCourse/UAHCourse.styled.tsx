@@ -5,7 +5,8 @@ export const Box = styled.div`
 `;
 
 export const Currency = styled.span`
+  margin-right: 10px;
+
   font-weight: bold;
   color: var(--color-accent);
-  margin-right: 10px;
 `;
