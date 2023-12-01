@@ -10,5 +10,5 @@ export const Main = styled.main`
   margin-right: auto;
 
   max-width: 1440px;
-  min-height: calc(100vh - 100px);
+  min-height: calc(100vh - 120px);
 `;

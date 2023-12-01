@@ -10,7 +10,7 @@ export const FooterSection = styled.header`
   margin-right: auto;
 
   max-width: 1440px;
-  height: 40px;
+  height: 60px;
 `;
 
 export const GhLink = styled.a`
