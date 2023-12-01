@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Main, Text } from "./App.styled";
+import { Main, Desc } from "./App.styled";
 import { Header, Converter, Footer } from "../";
 import { Htag } from "../Htag/Htag";
 
@@ -8,10 +8,8 @@ const App: FC = () => {
     <>
       <Header />
       <Main>
-        <Htag style={{ marginTop: 70 }} tag="h1">
-          Global Currency Exchange Rate APP
-        </Htag>
-        <Text>with live currency exchange rates for over 200 world currencies</Text>
+        <Htag tag="h1">Global Currency Exchange Rate APP</Htag>
+        <Desc>with live currency exchange rates for over 200 world currencies</Desc>
         <Converter />
       </Main>
       <Footer />

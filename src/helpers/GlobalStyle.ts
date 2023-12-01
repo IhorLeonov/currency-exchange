@@ -15,11 +15,13 @@ html {
 }
 
 :root {
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  --color-background: #060412;
+  --color-text: #b3b3b3;
+  --color-accent: #204ffe;
+
+  --font-family: 'Noto Sans KR', sans-serif;
+  --title-font-family: "Kanit", sans-serif;
+  
 }
 
 h1,
@@ -39,7 +41,9 @@ ol {
 }
 
 body {
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: var(--font-family);
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 img {

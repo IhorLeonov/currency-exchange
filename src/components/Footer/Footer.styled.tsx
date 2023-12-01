@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const FooterSection = styled.header`
-  border: 1px solid tomato;
-
   display: flex;
   justify-content: center;
   align-items: center;

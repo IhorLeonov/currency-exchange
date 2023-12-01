@@ -12,6 +12,7 @@ export const Main = styled.main`
   min-height: calc(100vh - 100px);
 `;
 
-export const Text = styled.p`
+export const Desc = styled.p`
   margin-top: 10px;
+  color: var(--color-accent);
 `;
