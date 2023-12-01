@@ -1,9 +1,12 @@
 export interface MainSliceState {
   isLoading: boolean;
+  isLoadingHeader: boolean;
   error: string | null;
   data: {
+    UAHtoUSDCourse: number | null;
+    UAHtoEURCourse: number | null;
     currencyList: string[];
-    ecxchangeRate: number | null;
+    ecxchangeCourse: number | null;
     firstCurrency: string;
     secondCurrency: string;
   };

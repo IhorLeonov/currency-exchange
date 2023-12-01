@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Box, Input, Select } from "./CurrencyField.styled";
+import { Box, Caption, Input, Select } from "./CurrencyField.styled";
 
 interface CurrencyFieldProps {
   currencyList: string[];
@@ -7,6 +7,7 @@ interface CurrencyFieldProps {
   onChangeCurrency: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   onChangeAmount: (e: React.ChangeEvent<HTMLInputElement>) => void;
   amount: number | string;
+  text: string;
 }
 
 export const CurrencyField: FC<CurrencyFieldProps> = ({
@@ -15,6 +16,7 @@ export const CurrencyField: FC<CurrencyFieldProps> = ({
   onChangeCurrency,
   onChangeAmount,
   amount,
+  text,
 }) => {
   const formatArray = (arr: string[]) => {
     return Array.from(new Set(arr)).sort();
@@ -22,7 +24,8 @@ export const CurrencyField: FC<CurrencyFieldProps> = ({
 
   return (
     <Box>
-      <Input type="number" value={amount} onChange={onChangeAmount} />
+      <Caption>{text}:</Caption>
+      <Input type="number" min="0" value={amount} onChange={onChangeAmount} />
       <Select value={selectedCurrency} onChange={onChangeCurrency}>
         {currencyList &&
           formatArray(currencyList).map((option) => {

@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from "react";
 import { CurrencyField } from "../CurrencyField/CurrencyField";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { selectData } from "../../redux/selectors";
-import { getAllCurrency, getCurrency } from "../../redux/operations";
+import { getAllCurrencies, getCurrencyCourse } from "../../redux/operations";
 import { setFirstCurrency, setSecondCurrency } from "../../redux/mainSlice";
 
 export const Converter: FC = () => {
@@ -13,21 +13,21 @@ export const Converter: FC = () => {
   const data = useAppSelector(selectData);
   const dispatch = useAppDispatch();
 
-  const { currencyList, firstCurrency, secondCurrency, ecxchangeRate } = data;
+  const { currencyList, firstCurrency, secondCurrency, ecxchangeCourse } = data;
 
   let firstAmount: number | string = "";
   let secondAmount: number | string = "";
 
-  if (ecxchangeRate) {
+  if (ecxchangeCourse) {
     if (isFirstOrSecond) {
       firstAmount = amount;
-      secondAmount = Number(amount) * ecxchangeRate;
+      secondAmount = Number(amount) * ecxchangeCourse;
       if (firstAmount === "") {
         secondAmount = "";
       }
     } else {
       secondAmount = amount;
-      firstAmount = Number(amount) / ecxchangeRate;
+      firstAmount = Number(amount) / ecxchangeCourse;
       if (secondAmount === "") {
         firstAmount = "";
       }
@@ -35,13 +35,13 @@ export const Converter: FC = () => {
   }
 
   useEffect(() => {
-    dispatch(getAllCurrency());
+    dispatch(getAllCurrencies());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (firstCurrency && secondCurrency) {
-      dispatch(getCurrency({ firstCurrency, secondCurrency }));
+      dispatch(getCurrencyCourse({ firstCurrency, secondCurrency }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firstCurrency, secondCurrency]);
@@ -58,6 +58,7 @@ export const Converter: FC = () => {
   return (
     <Box>
       <CurrencyField
+        text="From"
         amount={firstAmount}
         currencyList={currencyList}
         selectedCurrency={firstCurrency}
@@ -74,6 +75,7 @@ export const Converter: FC = () => {
         selectedCurrency={secondCurrency}
         currencyList={currencyList}
         amount={secondAmount}
+        text="To"
       />
     </Box>
   );

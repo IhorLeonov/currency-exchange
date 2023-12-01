@@ -3,12 +3,15 @@ import styled from "styled-components";
 export const Main = styled.main`
   display: flex;
   flex-direction: column;
-  align-items: center;
 
+  padding: 0 40px;
   margin-left: auto;
   margin-right: auto;
-  padding: 40px;
-  width: 600px;
 
-  border: 1px solid grey;
+  max-width: 1440px;
+  min-height: calc(100vh - 100px);
+`;
+
+export const Text = styled.p`
+  margin-top: 10px;
 `;

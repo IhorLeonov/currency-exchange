@@ -1,11 +1,19 @@
 import { PayloadAction, isAnyOf, createSlice } from "@reduxjs/toolkit";
-import { getAllCurrency, getCurrency } from "./operations";
+import { getAllCurrencies, getCurrencyCourse, getUAHtoUSD, getUAHtoEUR } from "./operations";
 import { MainSliceState } from "../helpers/types";
 
 const initialState = {
   isLoading: false,
+  isLoadingHeader: false,
   error: "Qwe",
-  data: { currencyList: [], ecxchangeRate: null, firstCurrency: "", secondCurrency: "" },
+  data: {
+    UAHtoUSDCourse: null,
+    UAHtoEURCourse: null,
+    ecxchangeCourse: null,
+    currencyList: [],
+    firstCurrency: "",
+    secondCurrency: "",
+  },
 } as MainSliceState;
 
 const handleSameFulfilled = (state: MainSliceState) => {
@@ -29,24 +37,42 @@ const mainSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllCurrency.fulfilled, (state, action) => {
+      .addCase(getAllCurrencies.fulfilled, (state, action) => {
         const { rates, base } = action.payload;
-        // const firstName = Object.keys(rates)[0];
-        state.data.currencyList = [...Object.keys(rates)];
+        state.data.currencyList = Object.keys(rates);
         state.data.firstCurrency = base;
-        // state.data.secondCurrency = firstName;
         state.data.secondCurrency = "UAH";
         handleSameFulfilled(state);
       })
-      .addCase(getCurrency.fulfilled, (state, action) => {
-        state.data.ecxchangeRate = action.payload;
+      .addCase(getCurrencyCourse.fulfilled, (state, action) => {
+        state.data.ecxchangeCourse = action.payload;
         handleSameFulfilled(state);
       })
-      .addMatcher(isAnyOf(getAllCurrency.pending, getCurrency.pending), (state) => {
+      .addCase(getUAHtoUSD.fulfilled, (state, action) => {
+        state.data.UAHtoUSDCourse = action.payload;
+        state.isLoadingHeader = false;
+        state.error = null;
+      })
+      .addCase(getUAHtoEUR.fulfilled, (state, action) => {
+        state.data.UAHtoEURCourse = action.payload;
+        state.isLoadingHeader = false;
+        state.error = null;
+      })
+      .addMatcher(isAnyOf(getAllCurrencies.pending, getCurrencyCourse.pending), (state) => {
         state.isLoading = true;
       })
-      .addMatcher(isAnyOf(getAllCurrency.rejected, getCurrency.rejected), (state, action) => {
-        state.isLoading = false;
+      .addMatcher(isAnyOf(getUAHtoUSD.pending, getUAHtoEUR.pending), (state) => {
+        state.isLoadingHeader = true;
+      })
+      .addMatcher(
+        isAnyOf(getAllCurrencies.rejected, getCurrencyCourse.rejected),
+        (state, action) => {
+          state.isLoading = false;
+          if (typeof action.payload === "string") state.error = action.payload;
+        }
+      )
+      .addMatcher(isAnyOf(getUAHtoUSD.rejected, getUAHtoEUR.rejected), (state, action) => {
+        state.isLoadingHeader = false;
         if (typeof action.payload === "string") state.error = action.payload;
       });
   },
