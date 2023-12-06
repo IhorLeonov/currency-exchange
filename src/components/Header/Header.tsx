@@ -13,6 +13,7 @@ export const Header: FC = () => {
   useEffect(() => {
     dispatch(getUAHtoUSD());
     dispatch(getUAHtoEUR());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
