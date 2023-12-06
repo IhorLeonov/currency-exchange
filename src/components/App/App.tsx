@@ -29,7 +29,6 @@ const App: FC = () => {
     return () => {
       () => dispatch(resetError());
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
   return (
     <>
