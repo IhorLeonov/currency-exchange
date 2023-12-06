@@ -37,9 +37,9 @@ const mainSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllCurrencies.fulfilled, (state, action) => {
-        const { rates, base } = action.payload;
-        state.data.currencyList = Object.keys(rates);
-        state.data.firstCurrency = base;
+        const { conversion_rates, base_code } = action.payload;
+        state.data.currencyList = Object.keys(conversion_rates);
+        state.data.firstCurrency = base_code;
         state.data.secondCurrency = "UAH";
         handleSameFulfilled(state);
       })
