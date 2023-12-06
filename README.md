@@ -14,7 +14,7 @@ React application with live currency exchange rates for over 200 world currencie
 
 ## API
 
-- Currencybeacon API [https://app.exchangerate-api.com](https://app.exchangerate-api.com)
+- [https://app.exchangerate-api.com](https://app.exchangerate-api.com)
   
 ## Start development server:
 
