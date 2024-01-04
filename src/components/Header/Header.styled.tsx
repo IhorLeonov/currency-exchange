@@ -12,4 +12,8 @@ export const HeaderSection = styled.header`
 
   max-width: 1440px;
   height: 60px;
+
+  @media (max-width: 455px) {
+    padding: 0 30px;
+  }
 `;
